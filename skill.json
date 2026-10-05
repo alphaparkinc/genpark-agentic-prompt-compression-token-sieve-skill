@@ -1,0 +1,48 @@
+{
+  "name": "genpark-agentic-prompt-compression-token-sieve-skill",
+  "version": "1.0.0",
+  "description": "Dynamic Few-Shot Agentic Prompt Compression & Token Sieve. Compresses multi-turn conversation history, strips verbose boilerplate and filler tokens, retains critical tool parameters and named entities, slashing inference costs by 40-60% deterministically.",
+  "tools": [
+    {
+      "name": "compress_agent_prompt_context",
+      "description": "Compress multi-turn LLM agent prompts: remove whitespace, filter polite filler tokens, preserve tool call schemas and key entities, and compute compression savings.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "compress_prompt_context",
+              "estimate_token_count",
+              "extract_critical_entities"
+            ],
+            "description": "Compression action."
+          },
+          "prompt_text": {
+            "type": "string",
+            "description": "Raw prompt or conversation text to compress."
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "description": "Structured message list [role, content]."
+          },
+          "aggressiveness": {
+            "type": "string",
+            "enum": [
+              "LOW",
+              "MEDIUM",
+              "AGGRESSIVE"
+            ],
+            "description": "Compression intensity."
+          }
+        },
+        "required": [
+          "action"
+        ]
+      }
+    }
+  ]
+}
